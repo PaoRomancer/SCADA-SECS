@@ -1485,6 +1485,51 @@ function updateAuthDisplay() {
   updateEquipmentButtons();
 }
 
+let simNoticeTimer = null;
+
+function showSimNoticeModal() {
+  const modal = el('simNoticeModal');
+  if (!modal) return;
+
+  if (simNoticeTimer) {
+    clearTimeout(simNoticeTimer);
+    simNoticeTimer = null;
+  }
+
+  modal.classList.remove('fade-out');
+  modal.style.display = 'flex';
+  renderLucideIcons(modal);
+
+  const bar = el('simNoticeProgressBar');
+  if (bar) {
+    bar.style.transition = 'none';
+    bar.style.width = '100%';
+    void bar.offsetWidth;
+    bar.style.transition = 'width 3000ms linear';
+    bar.style.width = '0%';
+  }
+
+  simNoticeTimer = setTimeout(() => {
+    closeSimNoticeModal();
+  }, 3000);
+}
+
+function closeSimNoticeModal() {
+  const modal = el('simNoticeModal');
+  if (!modal || modal.style.display === 'none') return;
+
+  if (simNoticeTimer) {
+    clearTimeout(simNoticeTimer);
+    simNoticeTimer = null;
+  }
+
+  modal.classList.add('fade-out');
+  setTimeout(() => {
+    modal.style.display = 'none';
+    modal.classList.remove('fade-out');
+  }, 250);
+}
+
 function showDashboard(userData) {
   CURRENT_USER = userData;
   el('loginView').style.display = 'none';
@@ -1502,9 +1547,11 @@ function showDashboard(userData) {
   }
 
   render(true);
+  showSimNoticeModal();
 }
 
 function showLogin() {
+  closeSimNoticeModal();
   if (CURRENT_USER) {
     addAuditLog('SYS', 'User \'' + CURRENT_USER.username + '\' signed out', 'sys');
   }
@@ -1674,7 +1721,7 @@ function parseAndApplyCsv(csvText, fileName) {
     // Parse headers
     const headerLine = rawLines[0];
     const headers = headerLine.split(',').map(h => h.trim().toLowerCase().replace(/['"]/g, ''));
-    
+
     // Normalization map
     const colMap = {};
     headers.forEach((h, idx) => {
@@ -1700,7 +1747,7 @@ function parseAndApplyCsv(csvText, fileName) {
       if (colMap.it === undefined) missing.push("'it'");
       if (colMap.cool === undefined) missing.push("'cool'");
       showCsvFeedback(
-        (LANG === 'th' ? 
+        (LANG === 'th' ?
           `<b>อัปโหลดไม่สำเร็จ:</b> ไม่พบคอลัมน์หลัก ${missing.join(', ')} ในไฟล์ CSV กรุณาตรวจสอบว่ามีคอลัมน์ <code>it</code> และ <code>cool</code>` :
           `<b>Upload Failed:</b> Missing required column(s) ${missing.join(', ')}. The CSV must contain at least <code>it</code> and <code>cool</code>.`),
         'error'
@@ -2142,6 +2189,21 @@ function bind() {
     el('btnChartFsClose').addEventListener('click', () => closeChartFsModal());
   }
 
+  // Simulation Warning Modal Listeners
+  if (el('btnSimNoticeClose')) {
+    el('btnSimNoticeClose').addEventListener('click', closeSimNoticeModal);
+  }
+  if (el('btnSimNoticeOk')) {
+    el('btnSimNoticeOk').addEventListener('click', closeSimNoticeModal);
+  }
+  if (el('simNoticeModal')) {
+    el('simNoticeModal').addEventListener('click', e => {
+      if (e.target === el('simNoticeModal')) {
+        closeSimNoticeModal();
+      }
+    });
+  }
+
   if (el('btnTheme')) el('btnTheme').addEventListener('click', toggleTheme);
   if (el('btnLoginTheme')) el('btnLoginTheme').addEventListener('click', toggleTheme);
 
@@ -2184,6 +2246,14 @@ function bind() {
         return;
       }
     }
+    const simModal = el('simNoticeModal');
+    if (simModal && simModal.style.display !== 'none') {
+      if (e.key === 'Escape' || e.key === 'Enter') {
+        e.preventDefault();
+        closeSimNoticeModal();
+        return;
+      }
+    }
     if (CURRENT_USER) {
       if (e.key === ' ') { e.preventDefault(); el('btnPlay').click(); }
       if (e.key === 'ArrowRight') { IDX = Math.min(N - 1, IDX + 15); render(true); }
@@ -2197,6 +2267,8 @@ function bind() {
    ===================================================================== */
 
 window.openChartFsModal = openChartFsModal;
+window.showSimNoticeModal = showSimNoticeModal;
+window.closeSimNoticeModal = closeSimNoticeModal;
 buildModel(); buildAlarms(); buildCum();
 buildStatic(); buildCharts(); bind(); applyTheme(THEME); applyLang(); renderLucideIcons();
 IDX = 0; render(true);

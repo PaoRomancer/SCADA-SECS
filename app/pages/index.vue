@@ -68,6 +68,43 @@ onMounted(async () => {
     </div>
   </div>
 
+  <!-- ================= SIMULATION ONLY ADVISORY MODAL ================= -->
+  <div id="simNoticeModal" class="modal-backdrop sim-notice-backdrop" style="display:none">
+    <div class="modal-card sim-notice-card" id="simNoticeCard">
+      <div class="modal-header sim-notice-header">
+        <div class="modal-badge-warn">
+          <i data-lucide="triangle-alert"></i> <span>SIMULATION NOTICE · ระบบจำลอง</span>
+        </div>
+        <button class="modal-close" id="btnSimNoticeClose" title="Close" aria-label="Close">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="modal-body sim-notice-body">
+        <div class="sim-notice-title-row">
+          <span class="sim-notice-emoji">⚠️</span>
+          <h3 class="sim-notice-title">Simulation only:</h3>
+        </div>
+        
+        <div class="sim-notice-divider">
+          <span class="sim-dashed-chars">----------------------------------------------------</span>
+        </div>
+
+        <p class="sim-notice-message">
+          This project uses simulated data in the browser. It does not connect to PLCs, BMSs, or real equipment, and must not be used to operate live systems.
+        </p>
+
+        <div class="sim-notice-progress-wrap">
+          <div class="sim-notice-progress-bar" id="simNoticeProgressBar"></div>
+        </div>
+      </div>
+      <div class="modal-footer sim-notice-footer">
+        <button type="button" class="btn-modal btn-confirm sim-notice-ok-btn" id="btnSimNoticeOk">
+          <i data-lucide="check"></i> <span>OK</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- ================= FULL SCREEN GRAPH POPUP MODAL ================= -->
   <div id="chartFsModal" class="modal-backdrop" style="display:none">
     <div class="chart-fs-card" id="chartFsCard">
