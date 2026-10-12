@@ -1154,7 +1154,6 @@ onMounted(async () => {
                 </p>
               </div>
               <div style="display:flex;align-items:center;gap:10px">
-                <span class="badge b-ok" id="cfgStatusBadge"><i></i> SYSTEM ONLINE</span>
                 <span class="badge b-info" id="cfgRoleBadge">Administrator</span>
               </div>
             </div>
@@ -1181,9 +1180,6 @@ onMounted(async () => {
                   </button>
                 </div>
               </div>
-              <div class="note">
-                Dark mode optimizes contrast for SCADA 24/7 mission-critical operations; Light mode is tailored for high-ambient control rooms and PDF reports.
-              </div>
             </div>
           </div>
 
@@ -1204,9 +1200,6 @@ onMounted(async () => {
                     <span style="font-size:14px">🇬🇧</span> <span>English (EN)</span>
                   </button>
                 </div>
-              </div>
-              <div class="note">
-                Switches real-time labels across plant mimic, charts, alarm logs, equipment statuses, and control dialogs.
               </div>
             </div>
           </div>
