@@ -21,6 +21,10 @@ A simulated SCADA web application for monitoring and exploring the management of
 
 ## 🚀 Getting Started
 
+NEW! This Projects is still on cloudflare
+you can click here to see my projects idea: [SECS-PARAMETER](https://secs-parameter.67010328.workers.dev/)
+
+If you download this project
 Make sure Node.js and npm are installed, then run:
 
 ```bash
