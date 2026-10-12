@@ -1,4 +1,4 @@
-# 🏢 Datacenter Cooling System
+# 🏢 Smart Energy for Datacenter Cooling System (SECS)
 
 A simulated SCADA web application for monitoring and exploring the management of a data center cooling system. Built with Nuxt 4 and Vue 3, with support for both Thai and English.
 
