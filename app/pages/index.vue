@@ -188,7 +188,7 @@ onMounted(async () => {
       </div>
 
       <div class="login-footer">
-        <span>Delta Electronics · KMITL · Parameter Team <br> SCADA Simulation</span>
+        <span>Delta Electronics · KMITL · Parameter Team <br> SCADA Simulation <br>Create by: Natthawit N.(KMITL) · Satthawut S.(KMITL) · Kittituch B.(KMITL)</span>
       </div>
     </div>
   </div>
