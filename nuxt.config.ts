@@ -3,6 +3,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['~/assets/css/scada.css'],
   nitro: {
-    preset: 'static'
+    prerender: {
+      routes: ['/']
+    }
   }
 })
