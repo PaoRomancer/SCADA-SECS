@@ -1,0 +1,8 @@
+{
+  "name": "paoromancer-scada-secs",
+  "compatibility_date": "2025-07-15",
+  "assets": {
+    "directory": "./.output/public",
+    "not_found_handling": "single-page-application"
+  }
+}
